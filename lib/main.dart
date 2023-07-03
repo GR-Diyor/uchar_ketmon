@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:uchar_ketmon/configs/app_string.dart';
+import 'package:uchar_ketmon/configs/app_style.dart';
+import 'package:uchar_ketmon/ui/home.dart';
 
-void main() {
+void main() async{
+  AppStyle.init();
   runApp(const MyApp());
 }
 
@@ -9,8 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-
+    return  MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: AppString.appName,
+      theme: ThemeData.light(),
+      initialRoute: Home.id,
+      home: const Home(),
+      routes: {
+        Home.id:(context) =>const Home(),
+      },
     );
   }
 }
