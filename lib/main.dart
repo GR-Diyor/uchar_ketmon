@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uchar_ketmon/configs/app_string.dart';
 import 'package:uchar_ketmon/configs/app_style.dart';
 import 'package:uchar_ketmon/ui/home.dart';
+import 'package:uchar_ketmon/ui/start.dart';
 
 void main() async{
   AppStyle.init();
@@ -17,9 +18,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: AppString.appName,
       theme: ThemeData.light(),
-      initialRoute: Home.id,
-      home: const Home(),
+      initialRoute: Start.id,
+      home: const Start(),
       routes: {
+        Start.id:(context)=>const Start(),
         Home.id:(context) =>const Home(),
       },
     );
