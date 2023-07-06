@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
 import 'app_color.dart';
 
 
@@ -11,7 +12,6 @@ class AppStyle{
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown
     ]);
-
   }
   static Future<void>fullScreen()async{
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);

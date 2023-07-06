@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uchar_ketmon/configs/app_string.dart';
 import 'package:uchar_ketmon/configs/app_style.dart';
 import 'package:uchar_ketmon/ui/home.dart';
 import 'package:uchar_ketmon/ui/start.dart';
+import 'package:uchar_ketmon/utills/prefs.dart';
 
 void main() async{
   AppStyle.init();
