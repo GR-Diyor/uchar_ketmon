@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import '../utills/prefs.dart';
 import 'app_color.dart';
 
 
@@ -8,10 +9,13 @@ class AppStyle{
 
   static Future<void>init()async {
     WidgetsFlutterBinding.ensureInitialized();
+    await Hive.initFlutter();
+     DB.box = await Hive.openBox('myBox');
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown
     ]);
+    fullScreen();
   }
   static Future<void>fullScreen()async{
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);

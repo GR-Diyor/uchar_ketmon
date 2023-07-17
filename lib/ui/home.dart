@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:lottie/lottie.dart';
 import 'package:uchar_ketmon/configs/app_color.dart';
 import 'package:uchar_ketmon/ui/start.dart';
 import 'package:uchar_ketmon/utills/prefs.dart';
 import 'package:uchar_ketmon/view/widget/app_screen/full_screen.dart';
+
+import '../configs/app_size.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -16,22 +18,48 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with TickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation _myAnimation;
+
   @override
-  void initState()  {
-    // highscore = int.tryParse(DB().getData().toString())!;
+  void initState() {
+    // TODO: implement initState
     super.initState();
+    setState(() {
+      highscore = DB().getData();
+    });
+    print("Score database : ${DB().getData()}");
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    );
+    _myAnimation = Tween<double>(begin: 90, end: 120)
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.bounceIn));
+    _controller.addStatusListener((AnimationStatus status) {
+      if (status == AnimationStatus.completed) {
+        _controller.repeat();
+      }
+    });
+    _controller.forward();
   }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   static double yAxis = 0;
   double time = 0;
   double height = 0;
   double initialHeight = yAxis;
   bool gamehasStarted = false;
- static double barrierX = 0;
-  double barrierY = barrierX+2;
+  static double barrierX = 2;
+  double barrierY = barrierX + 2;
   int score = 0;
   int highscore = 0;
-  int counter =0;
+  int counter = 0;
 
   jump() {
     setState(() {
@@ -39,28 +67,43 @@ class _HomeState extends State<Home> {
       initialHeight = yAxis;
     });
   }
-  _showdialog(){
-    showCupertinoDialog(context: context, builder: (BuildContext context){
-      return AlertDialog(
-        backgroundColor: AppColor.brown,
-        title: Text("GAME OVER",style: TextStyle(color: AppColor.primary),),
-        content: Text("Score: $score",style: TextStyle(color: AppColor.primary),),
-        actions: [
-          TextButton(onPressed: (){
-            setState(() {
-              if(score>highscore){
-                highscore =score;
-                // DB().setData(highscore);
-              }
-              gamehasStarted = false;
-            });
-            Navigator.pop(context);
-            Navigator.pushReplacementNamed(context, Start.id);
-          }, child: Text("Play again",style: TextStyle(color: AppColor.primary),)),
-        ],
-      );
-    });
+
+  _showdialog() {
+    showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: AppColor.brown,
+            title: Text(
+              "GAME OVER",
+              style: TextStyle(color: AppColor.primary),
+            ),
+            content: Text(
+              "Score: $score",
+              style: TextStyle(color: AppColor.primary),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    setState(() {
+                      if (score > highscore) {
+                        highscore = score;
+                        DB().setData(highscore);
+                      }
+                      gamehasStarted = false;
+                    });
+                    Navigator.pop(context);
+                    Navigator.pushReplacementNamed(context, Start.id);
+                  },
+                  child: Text(
+                    "Play again",
+                    style: TextStyle(color: AppColor.primary),
+                  )),
+            ],
+          );
+        });
   }
+
   start() {
     gamehasStarted = true;
     Timer.periodic(const Duration(milliseconds: 50), (timer) {
@@ -69,17 +112,17 @@ class _HomeState extends State<Home> {
       height = -4.9 * time * time + 2.8 * time;
 
       setState(() {
-        if(barrierX<-2){
-          barrierX+=3.5;
-        }else{
-          barrierX-=0.05;
+        if (barrierX < -2) {
+          barrierX += 3.5;
+        } else {
+          barrierX -= 0.05;
         }
       });
       setState(() {
-        if(barrierY<-2){
-          barrierY+=3.5;
-        }else{
-          barrierY-=0.05;
+        if (barrierY < -2) {
+          barrierY += 3.5;
+        } else {
+          barrierY -= 0.05;
         }
       });
       setState(() {
@@ -87,7 +130,7 @@ class _HomeState extends State<Home> {
       });
       if (yAxis > 1) {
         setState(() {
-          score=counter;
+          score = counter;
           _showdialog();
           timer.cancel();
           gamehasStarted = false;
@@ -96,13 +139,13 @@ class _HomeState extends State<Home> {
     });
   }
 
-  Widget Barier({required double x,required double y,required double h}){
+  Widget Barier({required double x, required double y, required double h}) {
     return AnimatedContainer(
-      alignment: Alignment(x,y),
+      alignment: Alignment(x, y),
       duration: const Duration(milliseconds: 0),
       child: Container(
         height: h,
-        width: 80,
+        width: 60,
         decoration: BoxDecoration(
           color: Colors.green,
           borderRadius: BorderRadius.circular(10),
@@ -123,60 +166,105 @@ class _HomeState extends State<Home> {
       },
       child: fullScreen(
           context,
-          Column(
+          Stack(
             children: [
-              Expanded(
-                flex: 2,
-                child: Stack(
-                  children: [
-                    AnimatedContainer(
-                      color: AppColor.blue,
-                      alignment: Alignment(0, yAxis),
-                      duration: const Duration(milliseconds: 0),
-                      child: const FlutterLogo(
-                        size: 40,
-                      ),
-                    ),
+              Lottie.asset("assets/lotties/home.json",
+                  animate: true,
+                  reverse: false,
+                  repeat: true,
+                  options: LottieOptions(enableMergePaths: true),
+                  fit: BoxFit.fill,
+                  filterQuality: FilterQuality.high,
+                  height: AppSize.height(context),
+                  width: AppSize.width(context)),
+              Column(
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Stack(
+                      children: [
+                        AnimatedContainer(
+                          color: AppColor.transparent,
+                          alignment: Alignment(0, yAxis),
+                          duration: const Duration(milliseconds: 0),
+                          child: Image.asset(
+                            "assets/images/logo2.png",
+                            height: 40,
+                            width: 40,
+                          ),
+                        ),
 
-                    Container(
-                      alignment: const Alignment(0,-0.2),
-                      child:  gamehasStarted?Text("",style: TextStyle(fontSize: 20,color: AppColor.green.withOpacity(0.6)),): Text(score==0?"Tab to play":"",style: TextStyle(color: AppColor.primary),),
+                        Barier(x: barrierX, y: 1.1, h: 200),
+                        Barier(x: barrierY, y: -1.1, h: 150),
+                        // Barier(x: barrierX , y: 1.1,h:250),
+                        // Barier(x: barrierY , y: -1.1,h: 100),
+                        Container(
+                          alignment: const Alignment(0, 0.2),
+                          child: gamehasStarted
+                              ? Text(
+                                  "",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: AppColor.green.withOpacity(0.6)),
+                                )
+                              : counter == 0
+                                  ? AnimatedBuilder(
+                                      animation: _myAnimation,
+                                      builder: (ctx, ch) => Container(
+                                        width: _myAnimation.value,
+                                        height: _myAnimation.value,
+                                        child: Image.asset(
+                                            "assets/images/touch.png"),
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                        ),
+                      ],
                     ),
-                    Barier(x: barrierX , y: 1.1,h:200),
-                    Barier(x: barrierY , y: -1.1,h:150),
-                    Barier(x: barrierX , y: 1.1,h:250),
-                    Barier(x: barrierY , y: -1.1,h: 100),
-                  ],
-                ),
-              ),
-              Container(
-                color: AppColor.green,
-                height: 15,
-              ),
-              Expanded(
-                  child: Container(
-                color: AppColor.brown,
+                  ),
+                  Container(
+                    color: AppColor.green,
+                    height: 15,
+                  ),
+                  Expanded(
+                      // flex: 2,
+                      child: Container(
+                    color: AppColor.brown,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children:  [
-                            Text("Score",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize),),
+                          children: [
+                            Text(
+                              "Score",
+                              style: TextStyle(
+                                  fontSize: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .fontSize),
+                            ),
                             Text("$counter")
                           ],
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children:  [
-                            Text("Best",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize)),
+                          children: [
+                            Text("Best",
+                                style: TextStyle(
+                                    fontSize: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .fontSize)),
                             Text("$highscore")
                           ],
                         )
                       ],
                     ),
-              ))
+                  ))
+                ],
+              ),
             ],
           )),
     );

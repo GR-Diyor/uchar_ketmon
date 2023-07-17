@@ -4,11 +4,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uchar_ketmon/configs/app_string.dart';
 import 'package:uchar_ketmon/configs/app_style.dart';
 import 'package:uchar_ketmon/ui/home.dart';
+import 'package:uchar_ketmon/ui/splash.dart';
 import 'package:uchar_ketmon/ui/start.dart';
 import 'package:uchar_ketmon/utills/prefs.dart';
 
-void main() async{
-  AppStyle.init();
+Future<void> main() async{
+  await AppStyle.init();
   runApp(const MyApp());
 }
 
@@ -21,11 +22,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: AppString.appName,
       theme: ThemeData.light(),
-      initialRoute: Start.id,
-      home: const Start(),
+      initialRoute: Splash.id,
+      home: const Splash(),
       routes: {
         Start.id:(context)=>const Start(),
         Home.id:(context) =>const Home(),
+        Splash.id:(context)=>const Splash(),
       },
     );
   }

@@ -20,6 +20,8 @@ dependencies:
   provider: any
   shared_preferences: any
   hive: ^2.0.5
+  lottie: ^2.2.0
+  hive_flutter: any
 
 dev_dependencies:
   flutter_test:
@@ -36,6 +38,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/lotties/
 
   # fonts:
   #   - family: Schyler
