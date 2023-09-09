@@ -1,11 +1,17 @@
 import 'dart:async';
+import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_any_logo/flutter_logo.dart';
 import 'package:lottie/lottie.dart';
 import 'package:uchar_ketmon/configs/app_color.dart';
+import 'package:uchar_ketmon/configs/app_style.dart';
 import 'package:uchar_ketmon/ui/home.dart';
 import 'package:uchar_ketmon/view/widget/app_screen/full_screen.dart';
 import 'package:uchar_ketmon/configs/app_size.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Start extends StatefulWidget {
   const Start({Key? key}) : super(key: key);
@@ -24,7 +30,7 @@ class _StartState extends State<Start> {
   changeColor() {
     timer = Timer.periodic(
         const Duration(seconds: 1), (Timer timer) {
-      print(timer.tick);
+      // print(timer.tick);
       setState(() {
         if (timer.tick % 2 == 0) {
           button = Colors.blueAccent;
@@ -34,7 +40,12 @@ class _StartState extends State<Start> {
       });
     });
   }
-
+   UrlLaunch(String uri)async{
+    Uri url = Uri.parse(uri);
+     if (!await launchUrl(url)) {
+       throw Exception('Xatolik yuz berdi');
+     }
+   }
   @override
   void initState() {
     changeColor();
@@ -54,73 +65,96 @@ class _StartState extends State<Start> {
 
   about(BuildContext context) {
     showModalBottomSheet(context: context,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        elevation: 0.0,
-        isDismissible: true,
-        isScrollControlled: false,
-
-        builder: (BuildContext context) =>
-        Container(
-        height: (MediaQuery.of(context).size.height - 50),
-    decoration: const BoxDecoration(
-    borderRadius: BorderRadius.only(
-    topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-    color: Color(0xFFFBFAFF),
+    shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(16.0),
     ),
-    child: Column(
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: <Widget>[
-    const SizedBox(height: 16),
-    Row(
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: <Widget>[
-    const SizedBox(width: 16),
-    GestureDetector(
+    elevation: 0.0,
+    isDismissible: true,
+    isScrollControlled: false,
+
+    backgroundColor: AppColor.transparent,
+    barrierColor: AppColor.dark.withOpacity(0.2),
+    builder: (BuildContext context) =>
+    ClipRRect(
+    borderRadius: BorderRadius.circular(20),
+    child: BackdropFilter(
+    filter: ImageFilter.blur(
+    sigmaX: 15.0,
+    sigmaY: 15.0,
+    ),
     child: Container(
+    height: (MediaQuery.of(context).size.height - 50),
+    padding: AppSize.paddingScreen,
     decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(12.0),
-    color: Colors.white,
-    boxShadow: const [
-    BoxShadow(
-    color: Color(0x145A5A5A),
-    blurRadius: 20.0,
-    spreadRadius: 3.0,
-    offset: Offset(
-    2.0, 3.0), // shadow direction: bottom right
+    borderRadius:const BorderRadius.only(
+    topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+    color: AppColor.transparent,
+    ),
+    child:
+
+    Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: <Widget>[
+    const SizedBox(height: 20),
+    Text("Dastur haqida",
+    style: TextStyle(color: AppColor.primary,fontSize: AppSize.theme(context).bodyLarge!.fontSize),
+    ),
+    const SizedBox(height: 20),
+    //text
+    Text("Ilova Beta versiyada ishlamoqda,o'yin davomida xatolik yuzaga kelishi mumkin."
+    "Ilova haqidagi fikrlaringizni, bizning ijtiymoiy tarimoqlar orqali yo'llashingiz mumkin.", style: TextStyle(color: AppColor.primary, fontSize: Theme
+        .of(context)
+        .textTheme
+        .bodyLarge!
+        .fontSize)),
+
+    const SizedBox(height: 20,),
+    // via
+    SizedBox(
+    height: 60,
+    width: AppSize.width(context),
+    child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    children:  [
+      GestureDetector(
+          onTap:(){
+            UrlLaunch("https://www.instagram.com/spenser_dev?utm_source=qr&r=nametag");
+          },
+          child: AnyLogo.media.instagram.image()),
+      GestureDetector(
+          onTap:(){
+            UrlLaunch("https://t.me/+998905831382");
+          },
+          child: AnyLogo.media.telegram.image()),
+      GestureDetector(
+          onTap:(){
+            UrlLaunch("https://www.linkedin.com/in/diyorbek-nizomiddinov-058415232/");
+          },
+          child: AnyLogo.media.linkedin.image()),
+    ],
+    ),
+    ),
+    ],),
     )
-    ]),
-    child: Icon(Icons.cancel,color: button,size: 30,),
-    ),
-    onTap: () => Navigator.pop(context),
-    ),
+    ,
+    )
+    ,
+    ),);
+  }
 
-        ]),
-
-      // info
-
-
-      Card(
-          elevation: 0,
-          borderOnForeground: true,
-          margin: const EdgeInsets.only(left: 16.0,right: 16.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Ilova Nizomiddinov Diyorbek tomonidan qo'llab quvvatlanadi", style: TextStyle(color: AppColor.textPrimary, fontSize: Theme
-                    .of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .fontSize)),
-              ]
-          )
+  setting(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
       ),
-    ]),
-  ),);
+      elevation: 0.0,
+      isDismissible: true,
+      isScrollControlled: false,
+      backgroundColor: AppColor.transparent,
+      barrierColor: AppColor.dark.withOpacity(0.2),
+      builder: (BuildContext context) => const Settings(),
+    );
   }
 
   @override
@@ -169,7 +203,7 @@ class _StartState extends State<Start> {
               //options button
 
               GestureDetector(
-                onTap: ()=>about(context),
+                onTap: () => setting(context),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 1000),
                   height: 50,
@@ -205,11 +239,11 @@ class _StartState extends State<Start> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text("Dastur haqida",
-                      style: TextStyle(color: AppColor.primary, fontSize: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .fontSize),),
+                    style: TextStyle(color: AppColor.primary, fontSize: Theme
+                        .of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .fontSize),),
                 ),
               ),
             ],
@@ -219,3 +253,149 @@ class _StartState extends State<Start> {
     ));
   }
 }
+
+class Settings extends StatefulWidget {
+  const Settings({Key? key}) : super(key: key);
+
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  String? Level;
+  bool voiceActive = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: 15.0,
+          sigmaY: 15.0,
+        ),
+        child: Container(
+          width: AppSize.width(context),
+          height: AppSize.height(context) * 0.6,
+
+          decoration: BoxDecoration(
+            color: Theme
+                .of(context)
+                .focusColor,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 20,),
+              Text("Sozlamalar",
+                style: TextStyle(color: AppColor.primary, fontSize: AppSize
+                    .theme(context)
+                    .bodyLarge!
+                    .fontSize),
+              ),
+              const SizedBox(height: 40,),
+              SizedBox(
+                height: 60,
+                width: AppSize.Maxwidth,
+                child: Container(
+                  margin: AppSize.paddingScreen,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: AppColor.dark.withOpacity(0.05),
+                  ),
+                  child: OutlinedButton(
+                    onPressed: () {},
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Boshqich",
+                          style: TextStyle(color: AppColor.primary,
+                              fontSize: AppSize
+                                  .theme(context)
+                                  .bodyLarge!
+                                  .fontSize),),
+                        const SizedBox(width: 20,),
+                        DropdownButton(
+                          value: Level,
+                          hint: Text(Level ?? "", style: TextStyle(
+                              color: AppColor.primary, fontSize: AppSize
+                              .theme(context)
+                              .bodyMedium!
+                              .fontSize),),
+                          items: LeveldropDownMenuItems,
+                          onChanged: (value) {
+                            setState(() {
+                              Level = value;
+                            });
+                          },
+                          borderRadius: BorderRadius.circular(10),
+                          elevation: 0,
+                          dropdownColor: AppColor.dark.withOpacity(0.1),
+                          focusColor: AppColor.transparent,
+                          style: TextStyle(color: AppColor.primary,
+                              fontSize: AppSize
+                                  .theme(context)
+                                  .bodyMedium!
+                                  .fontSize),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20,),
+              SizedBox(
+                height: 60,
+                width: AppSize.Maxwidth,
+                child: Container(
+                  margin: AppSize.paddingScreen,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: AppColor.dark.withOpacity(0.05),
+                  ),
+                  child: OutlinedButton(
+                    onPressed: () {},
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Ovoz",
+                          style: TextStyle(color: AppColor.primary,
+                              fontSize: AppSize
+                                  .theme(context)
+                                  .bodyLarge!
+                                  .fontSize),),
+                        const SizedBox(width: 20,),
+                        CupertinoSwitch(
+                            value: voiceActive,
+                            onChanged: (bool value) {
+                              setState(() {
+                                voiceActive=value;
+                                HapticFeedback.lightImpact();
+                              });
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+const LevelItems = <String>[
+  "Oson",
+  "O'rta",
+  "Qiyin",
+
+];
+final List<DropdownMenuItem<String>>LeveldropDownMenuItems = LevelItems.map(
+      (String value) =>
+      DropdownMenuItem<String>(value: value, child: Text(value),),
+).toList();

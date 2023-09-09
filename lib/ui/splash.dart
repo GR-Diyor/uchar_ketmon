@@ -27,7 +27,7 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return fullScreen(context,
     const Center(
-      child: Text("Uzbek Game",style: TextStyle(
+      child: Text("Super ketmon",style: TextStyle(
         color: Colors.cyanAccent,
         fontSize: 30,
       ),),

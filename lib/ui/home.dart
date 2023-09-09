@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation _myAnimation;
+  Timer? Globaltime;
 
   @override
   void initState() {
@@ -72,43 +74,54 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: AppColor.brown,
-            title: Text(
-              "GAME OVER",
-              style: TextStyle(color: AppColor.primary),
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaY: 15.0,sigmaX: 15.0),
+              child: AlertDialog(
+                backgroundColor: AppColor.primary.withOpacity(0.1),
+                alignment: Alignment.center,
+                title: Text(
+                  "O'yin tugadi",
+                  style: TextStyle(color: AppColor.primary,fontSize: AppSize.theme(context).titleMedium!.fontSize),
+                  textAlign: TextAlign.center,
+                ),
+                content: Text(
+                  "Natija: $score",
+                  style: TextStyle(color: AppColor.primary,fontSize: AppSize.theme(context).bodySmall!.fontSize),
+                  textAlign: TextAlign.center,
+                ),
+                actions: [
+                  GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (score > highscore) {
+                            highscore = score;
+                            DB().setData(highscore);
+                          }
+                          gamehasStarted = false;
+                          yAxis=0;
+                          barrierX=2;
+                        });
+                        Navigator.pop(context);
+                        Navigator.pushReplacementNamed(context, Start.id);
+                      },
+                      child: Text(
+                        "chiqish",
+                        style: TextStyle(color: AppColor.primary,fontSize: AppSize.theme(context).bodyMedium!.fontSize),
+                      )),
+                ],
+              ),
             ),
-            content: Text(
-              "Score: $score",
-              style: TextStyle(color: AppColor.primary),
-            ),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    setState(() {
-                      if (score > highscore) {
-                        highscore = score;
-                        DB().setData(highscore);
-                      }
-                      gamehasStarted = false;
-                    });
-                    Navigator.pop(context);
-                    Navigator.pushReplacementNamed(context, Start.id);
-                  },
-                  child: Text(
-                    "Play again",
-                    style: TextStyle(color: AppColor.primary),
-                  )),
-            ],
           );
         });
   }
 
   start() {
     gamehasStarted = true;
-    Timer.periodic(const Duration(milliseconds: 50), (timer) {
+   Globaltime= Timer.periodic(const Duration(milliseconds: 70), (timer) {
       counter++;
-      time += 0.05;
+      time += 0.04;
       height = -4.9 * time * time + 2.8 * time;
 
       setState(() {
@@ -127,13 +140,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       });
       setState(() {
         yAxis = initialHeight - height;
+        print(yAxis);
       });
-      if (yAxis > 1) {
+      if (yAxis > 1.0) {
         setState(() {
-          score = counter;
-          _showdialog();
+          yAxis=1.0;
           timer.cancel();
           gamehasStarted = false;
+          score = counter;
+          Future.delayed(const Duration(milliseconds: 500),(){  _showdialog();});
         });
       }
     });
@@ -239,25 +254,33 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           children: [
                             Text(
                               "Score",
-                              style: TextStyle(
+                              style: TextStyle(color: AppColor.primary,
                                   fontSize: Theme.of(context)
                                       .textTheme
                                       .bodyMedium!
                                       .fontSize),
                             ),
-                            Text("$counter")
+                            Text("$counter", style: TextStyle(color: AppColor.primary,
+                                fontSize: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .fontSize),)
                           ],
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text("Best",
-                                style: TextStyle(
+                                style: TextStyle(color: AppColor.primary,
                                     fontSize: Theme.of(context)
                                         .textTheme
                                         .bodyMedium!
                                         .fontSize)),
-                            Text("$highscore")
+                            Text("$highscore", style: TextStyle(color: AppColor.primary,
+                                fontSize: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .fontSize),)
                           ],
                         )
                       ],
