@@ -103,8 +103,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           yAxis=0;
                           barrierX=2;
                         });
-                        Navigator.pop(context);
-                        Navigator.pushReplacementNamed(context, Start.id);
+                       // Navigator.pop(context,const Start());
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=>const Start()));
                       },
                       child: Text(
                         "chiqish",
@@ -122,7 +122,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
    Globaltime= Timer.periodic(const Duration(milliseconds: 70), (timer) {
       counter++;
       time += 0.04;
-      height = -4.9 * time * time + 2.8 * time;
+      height = -4.9 * time * time + 2.5 * time;
 
       setState(() {
         if (barrierX < -2) {
@@ -140,15 +140,23 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       });
       setState(() {
         yAxis = initialHeight - height;
-        print(yAxis);
       });
-      if (yAxis > 1.0) {
+      if (yAxis > 1.0 || yAxis<-1.1) {
         setState(() {
           yAxis=1.0;
           timer.cancel();
           gamehasStarted = false;
           score = counter;
-          Future.delayed(const Duration(milliseconds: 500),(){  _showdialog();});
+          Future.delayed(const Duration(milliseconds: 400),(){  _showdialog();});
+        });
+      }
+      if((barrierX<=0.1&&barrierX>=-0.1&&yAxis>0.2)||(barrierY<=0.1&&barrierY>=-0.1&&yAxis<-0.2)){
+        setState(() {
+        //  yAxis=1.0;
+          timer.cancel();
+          gamehasStarted = false;
+          score = counter;
+           Future.delayed(const Duration(milliseconds: 300),(){  _showdialog();});
         });
       }
     });
@@ -209,8 +217,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           ),
                         ),
 
-                        Barier(x: barrierX, y: 1.1, h: 200),
-                        Barier(x: barrierY, y: -1.1, h: 150),
+                        Barier(x: barrierX, y: 1.1, h: 250),
+                        Barier(x: barrierY, y: -1.1, h: 250),
                         // Barier(x: barrierX , y: 1.1,h:250),
                         // Barier(x: barrierY , y: -1.1,h: 100),
                         Container(
