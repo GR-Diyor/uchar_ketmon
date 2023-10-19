@@ -6,8 +6,8 @@
 </h4>
 
 # Ilova yo'riqnomasi
-<main src="https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/main.png" width="400" height="790">
-<setting src="https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/main_setting.png" width="400" height="790">
-<about src="https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/main_about.png" width="400" height="790">
-<game src="https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/game.png" width="400" height="790">
-<over src="https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/game_over.png" width="400" height="790">
+<img src="https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/main.png" width="400" height="790">
+<img src="https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/main_setting.png" width="400" height="790">
+<img src="https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/main_about.png" width="400" height="790">
+<img src="https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/game.png" width="400" height="790">
+<img src="https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/game_over.png" width="400" height="790">
