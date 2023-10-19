@@ -326,7 +326,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  String? Level;
+  String? Level="Oson";
   bool voiceActive = false;
 
   @override
@@ -366,7 +366,7 @@ class _SettingsState extends State<Settings> {
                 child: Container(
                   margin: AppSize.paddingScreen,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(0),
                     color: AppColor.dark.withOpacity(0.05),
                   ),
                   child: OutlinedButton(
@@ -424,7 +424,7 @@ class _SettingsState extends State<Settings> {
                 child: Container(
                   margin: AppSize.paddingScreen,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(0),
                     color: AppColor.dark.withOpacity(0.05),
                   ),
                   child: OutlinedButton(

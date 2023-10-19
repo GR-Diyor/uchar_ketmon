@@ -1,4 +1,4 @@
-package com.RF.uchar_ketmon
+package com.RF.super_ketmon
 
 import io.flutter.embedding.android.FlutterActivity
 
