@@ -6,8 +6,8 @@
 </h4>
 
 # Ilova yo'riqnomasi
-![Struktura1!](https://github.com/Diyorbek0617/super_ketmon/blob/assets/application/main.png)
-![Struktura1!](https://github.com/Diyorbek0617/super_ketmon/blob/assets/application/main_setting.png)
-![Struktura1!](https://github.com/Diyorbek0617/super_ketmon/blob/assets/application/main_about.png)
-![Struktura1!](https://github.com/Diyorbek0617/super_ketmon/blob/assets/application/game.png)
-![Struktura1!](https://github.com/Diyorbek0617/super_ketmon/blob/assets/application/game_over.png)
+![main!](https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/main.png)
+![setting!](https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/main_setting.png)
+![about!](https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/main_about.png)
+![game!](https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/game.png)
+![game over!](https://github.com/GR-Diyor/uchar_ketmon/blob/Mobile/assets/application/game_over.png)
