@@ -12,6 +12,7 @@ import '../../../core/configs/app_color.dart';
 import '../../../core/configs/app_size.dart';
 import '../../../core/utills/prefs.dart';
 import '../widget/app_screen/full_screen.dart';
+import 'home.dart';
 
 
 class Game extends StatefulWidget {
@@ -107,7 +108,7 @@ class _GameState extends State<Game> with TickerProviderStateMixin {
                           barrierX=2;
                         });
                        // Navigator.pop(context,const Start());
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=>const Game()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=>const Home()));
                       },
                       child: Text(
                         "chiqish",
