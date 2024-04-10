@@ -4,10 +4,10 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_any_logo/flutter_logo.dart';
+import 'package:uchar_ketmon/feature/data/widget/home/setting/setting.dart';
 
 import '../../../../core/configs/app_color.dart';
 import '../../../../core/configs/app_size.dart';
-import '../../ui/home.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 UrlLaunch(String uri) async {

@@ -2,27 +2,22 @@
 import 'package:equatable/equatable.dart';
 
 abstract class HomeState extends Equatable{
-
-}
-
-class HomeInit extends HomeState{
   @override
 
   List<Object?> get props => [];
+}
+
+class HomeInit extends HomeState{
+
 
 }
 
 class HomeLoading extends HomeState{
-  @override
-
-  List<Object?> get props => [];
 
 }
 
 class HomeLoaded extends HomeState{
-  @override
 
-  List<Object?> get props => [];
 
 }
 
@@ -32,7 +27,4 @@ class HomeError extends HomeState{
 
   HomeError(this.error);
 
-  @override
-
-  List<Object?> get props => [];
 }
