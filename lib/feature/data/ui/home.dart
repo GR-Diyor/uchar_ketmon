@@ -9,6 +9,7 @@ import 'package:uchar_ketmon/feature/data/cubit/home_cubit.dart';
 import 'package:uchar_ketmon/feature/data/cubit/home_state.dart';
 import '../../../core/configs/app_color.dart';
 import '../../../core/configs/app_size.dart';
+import '../../../core/configs/app_string.dart';
 import '../widget/app_screen/full_screen.dart';
 import '../widget/home/home_widget.dart';
 import 'game.dart';
@@ -69,7 +70,7 @@ class _HomeState extends State<Home> {
                 context,
                 Stack(
                   children: [
-                    Lottie.asset("assets/lotties/home.json",
+                    Lottie.asset(AppString.lottieHome,
                         animate: true,
                         reverse: false,
                         repeat: true,
@@ -103,6 +104,8 @@ class _HomeState extends State<Home> {
                               child: Text("Boshlash",
                                   style: TextStyle(
                                       color: AppColor.primary,
+                                      fontFamily: AppString.fontRegular,
+                                      fontWeight: FontWeight.w300,
                                       fontSize:
                                           AppSize.theme(context).bodyMedium!.fontSize)),
                             ),
@@ -128,6 +131,8 @@ class _HomeState extends State<Home> {
                               child: Text("Sozlamalar",
                                   style: TextStyle(
                                       color: AppColor.primary,
+                                      fontFamily: AppString.fontRegular,
+                                      fontWeight: FontWeight.w300,
                                       fontSize: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
@@ -157,6 +162,8 @@ class _HomeState extends State<Home> {
                                 "Dastur haqida",
                                 style: TextStyle(
                                     color: AppColor.primary,
+                                    fontFamily: AppString.fontRegular,
+                                    fontWeight: FontWeight.w300,
                                     fontSize: Theme.of(context)
                                         .textTheme
                                         .bodyMedium!

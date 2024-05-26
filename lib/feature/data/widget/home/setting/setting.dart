@@ -55,14 +55,11 @@ class _SettingsState extends State<Settings> {
                 child: Container(
                   margin: AppSize.paddingScreen,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(0),
+                    borderRadius: BorderRadius.circular(25),
                     color: AppColor.dark.withOpacity(0.05),
                   ),
                   child: OutlinedButton(
                     onPressed: () {},
-                    style: ButtonStyle(
-
-                    ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,7 +113,7 @@ class _SettingsState extends State<Settings> {
                 child: Container(
                   margin: AppSize.paddingScreen,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(0),
+                    borderRadius: BorderRadius.circular(25),
                     color: AppColor.dark.withOpacity(0.05),
                   ),
                   child: OutlinedButton(

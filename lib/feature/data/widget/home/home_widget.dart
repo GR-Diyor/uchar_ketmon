@@ -76,12 +76,12 @@ about(BuildContext context) {
                     GestureDetector(
                         onTap: () {
                           UrlLaunch(
-                              "https://www.instagram.com/spenser_dev?utm_source=qr&r=nametag");
+                              "https://www.instagram.com/rf_spenser?utm_source=qr&r=nametag");
                         },
                         child: AnyLogo.media.instagram.image()),
                     GestureDetector(
                         onTap: () {
-                          UrlLaunch("https://t.me/+998905831382");
+                          UrlLaunch("https://t.me/rf_spenser");
                         },
                         child: AnyLogo.media.telegram.image()),
                     GestureDetector(

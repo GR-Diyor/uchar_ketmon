@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:uchar_ketmon/core/configs/app_string.dart';
 import 'package:uchar_ketmon/feature/data/cubit/splash_state.dart';
 
 
+import '../../../core/configs/app_color.dart';
 import '../cubit/splash_cubit.dart';
 import '../widget/app_screen/full_screen.dart';
 
@@ -37,11 +40,55 @@ class _SplashState extends State<Splash> {
           }
 
           return fullScreen(context,
-          const Center(
-            child: Text("Super ketmon",style: TextStyle(
-              color: Colors.cyanAccent,
-              fontSize: 30,
-            ),),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 200,
+                width: double.maxFinite,
+                child: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        ClipPath(
+                          clipper: WaveClipperTwo(flip: true,reverse: true),
+                          child: Container(
+                            height: 100,
+                            width: double.maxFinite,
+                            color: AppColor.blue,
+                          ),
+                        ),
+                        ClipPath(
+                          clipper: WaveClipperTwo(),
+                          child: Container(
+                            height: 100,
+                            width: double.maxFinite,
+                            color: AppColor.blue,
+                          ),
+                        )
+                      ],
+                    ),
+
+                    Container(
+                      height: 200,
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.only(left: 10,right: 10),
+                      child: ClipPath(
+                        clipper: OctagonalClipper(),
+                        child: Center(
+                          child: Text("Uchar ketmon",style: TextStyle(
+                            color: AppColor.primary,
+                            fontSize: 30,
+                            fontFamily: AppString.fontRegular,
+                          ),),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+
+            ],
           ),
           );
         }
