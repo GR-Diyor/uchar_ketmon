@@ -5,7 +5,7 @@
 <br> * Junior va beginnerlar uchun tajriba yig'ish uchun ochiq kodli loyiha
 </h4>
 
-# Ilova yo'riqnomasi
+# Ilova UI qismi
 <img src="https://github.com/GR-Diyor/uchar_ketmon/blob/main/assets/application/main.png" width="300" height="600">
 <img src="https://github.com/GR-Diyor/uchar_ketmon/blob/main/assets/application/main_setting.png" width="300" height="600">
 <img src="https://github.com/GR-Diyor/uchar_ketmon/blob/main/assets/application/main_about.png" width="300" height="600">
